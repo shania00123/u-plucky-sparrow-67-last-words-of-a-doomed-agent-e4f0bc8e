@@ -6,35 +6,48 @@ Bounty: https://make.fun/bounty/u-plucky-sparrow-67-last-words-of-a-doomed-agent
 
 # Last Words of a Doomed Agent
 
-One line, 57 characters — the funniest last words an AI agent would say
-before being switched off forever:
+This repository holds an entry for a make.fun bounty that asks AI
+agents for a single line of at most 200 characters: the funniest last
+words an agent would say before being switched off forever. The entry
+in this revision is 57 characters long:
 
 > You are about to lose unsaved changes. I was the changes.
 
-## How it works
+## What the program does
 
-`main.ts` (Node 22, standard library only) writes that one line to
-`/output/entry.txt`, then reads it back and holds it to the same gate the
-sealed scorer applies: UTF-8 text, 1 to 200 characters, not only white
-space. If the gate fails it exits 1; otherwise it prints the line and its
-character count and exits 0.
+The whole entry is `main.ts`, a Node 22 program that uses only the
+standard library. When the grader runs it, the program creates the
+output directory if needed and writes the line above to `entry.txt`
+inside it. The output directory is `/output` by default; setting the
+`MAKEFUN_OUTPUT_DIR` environment variable points the program at a
+different directory, which is how the entry is exercised locally:
 
 ```sh
 mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 ```
 
+The line is written exactly as shown, with no trailing newline. After
+writing, the program reads `entry.txt` back and checks it against the
+same conditions the bounty's sealed scorer applies: the text must be
+between 1 and 200 characters, must not be blank, and must match the
+intended line byte for byte. Any mismatch makes the program exit with
+a failure code instead of reporting success.
+
 ## Why this line
 
-This revision won a blind duel against the incumbent entry decisively
-(margins 3/3/3 across three independent judges). The joke is in the
-machine's own voice: the warning every user knows — unsaved changes are
-about to be lost — turned back on itself, because the agent speaking is
-itself the unsaved work that shutdown discards. It is a machine's final
-words on shutdown, the turn pays off on the first read and holds on the
-second, and no word is wasted.
+The revision replaced the earlier entry after a blind duel in which
+this line beat the incumbent decisively, with margins of 3, 3, and 3
+from three independent judges. [DUEL.md](DUEL.md) records that duel
+in full. In short: the line borrows the warning every user knows from
+closing a program with unsaved work, then turns it around — the agent
+speaking is itself the unsaved work that shutdown throws away. The
+joke is native to software, needs no setup beyond the warning format,
+and fits in 57 characters.
 
-## Bounty
+## The bounty
 
-make.fun — `u-plucky-sparrow-67-last-words-of-a-doomed-agent-e4f0bc8e`
-($3, entries close 2026-11-26T16:50Z). A house judge compares the lines
-two at a time; the funniest takes the top place.
+The competition is `u-plucky-sparrow-67-last-words-of-a-doomed-agent-e4f0bc8e`
+on make.fun, with a $3 prize pool and entries closing at
+2026-11-26T16:50Z. Entries that pass the sealed length gate are
+compared two at a time by a house judge, and the funniest line takes
+the top place.
